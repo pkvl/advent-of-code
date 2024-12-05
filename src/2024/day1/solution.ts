@@ -1,4 +1,4 @@
-import fs from 'node:fs';
+import readFileToString from '../../utils/readFileToString';
 
 export function part1(fileInputName: string): Number {
   const [firstArr, secondArr] = prepareArrays(fileInputName);
@@ -18,23 +18,19 @@ function prepareArrays(fileInputName: string): any {
   const firstArr: number[] = [];
   const secondArr: number[] = [];
 
-  try {
-    const data = fs.readFileSync(fileInputName, 'utf8');
-    data.split('\n').forEach(element => {
-      if (element.length > 0) {
-        const [first, second] = element.split('   ', 2);
-        firstArr.push(+first.trim());
-        secondArr.push(+second.trim());
-      }
-    });
+  const data = readFileToString(fileInputName);
+  data?.split('\n').forEach(element => {
+    if (element.length > 0) {
+      const [first, second] = element.split('   ', 2);
+      firstArr.push(+first.trim());
+      secondArr.push(+second.trim());
+    }
+  });
 
-    firstArr.sort(compareNumFn);
-    secondArr.sort(compareNumFn);
+  firstArr.sort(compareNumFn);
+  secondArr.sort(compareNumFn);
 
-    return [firstArr, secondArr];
-  } catch (error) {
-    console.log(error);
-  }
+  return [firstArr, secondArr];
 }
 
 function compareNumFn(a: number, b: number): number {

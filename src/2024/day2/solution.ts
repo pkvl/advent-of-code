@@ -1,5 +1,4 @@
-
-import fs from 'node:fs';
+import readFileToString from "../../utils/readFileToString";
 
 export function part1(fileInputName: string): number {
   const arrays = prepareArrays(fileInputName);
@@ -19,13 +18,9 @@ export function part2(fileInputName: string): number {
 }
 
 function prepareArrays(fileInputName: string): number[][] | undefined {
-  try {
-    const data = fs.readFileSync(fileInputName, 'utf8');
-    const arrays = data.split('\n').map(element => element.split(' ').map(Number));
-    return arrays;
-  } catch (error) {
-    console.log(error);
-  }
+  const data = readFileToString(fileInputName);
+  const arrays = data?.split('\n').map(element => element.split(' ').map(Number));
+  return arrays;
 }
 
 function isSafe(array: number[]): boolean {
