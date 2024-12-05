@@ -1,5 +1,6 @@
 # ignore all input data
 *.csv
+*.txt
 
 # Logs
 logs
